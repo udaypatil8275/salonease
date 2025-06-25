@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Signup | SalonEase</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(120deg, #d81b60, #ba68c8);
+    }
+
+    .container {
+      display: flex;
+      width: 85%;
+      max-width: 900px;
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    .left, .right {
+      width: 50%;
+      padding: 40px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .left {
+      background: #fce4ec;
+    }
+
+    .left h2 {
+      margin-bottom: 20px;
+      font-size: 2rem;
+      color: #d81b60;
+    }
+
+    .left form input {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      margin-bottom: 20px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 1rem;
+      color: #333;
+    }
+
+    .left form button {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      background: #ba68c8;
+      color: white;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .left form button:hover {
+      background: #9c27b0;
+    }
+
+    .social-login {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .social-icon {
+      font-size: 30px;
+      color: #ba68c8;
+      cursor: pointer;
+      transition: transform 0.3s, color 0.3s;
+    }
+
+    .social-icon:hover {
+      color: #9c27b0;
+      transform: scale(1.1);
+    }
+
+    .right {
+      background: linear-gradient(120deg, #ba68c8, #9c27b0);
+      color: white;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .right h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+
+    .right p {
+      margin-bottom: 20px;
+      font-size: 1rem;
+      padding: 0 20px;
+    }
+
+    .right a {
+      text-decoration: none;
+      background: white;
+      color: #ba68c8;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    .right a:hover {
+      background: #fce4ec;
+      color: #9c27b0;
+    }
+
+    @media (max-width: 767px) {
+      body {
+        flex-direction: column;
+        height: auto;
+        padding: 20px;
+      }
+
+      .container {
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .left, .right {
+        width: 100%;
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="left">
+      <h2>Create Your SalonEase Account</h2>
+      <form id="signup-form">
+        <input type="text" placeholder="Full Name" id="signup-name" required>
+        <input type="email" placeholder="Email Address" id="signup-email" required>
+        <input type="password" placeholder="Password" id="signup-password" required>
+        <input type="text" placeholder="Role (user / owner)" id="signup-role" required>
+        <button type="submit">Sign Up</button>
+        <p>or sign up with</p>
+        <div class="social-login">
+          <i class="fab fa-facebook-square social-icon"></i>
+          <i class="fab fa-google social-icon"></i>
+          <i class="fab fa-linkedin social-icon"></i>
+        </div>
+      </form>
+    </div>
+    <div class="right">
+      <h2>Welcome to SalonEase!</h2>
+      <p>Join us and start booking your favorite beauty services today.</p>
+      <a href="login.html">Already have an account? Login</a>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("signup-form").addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById("signup-name").value.trim();
+      const email = document.getElementById("signup-email").value.trim().toLowerCase();
+      const password = document.getElementById("signup-password").value;
+      const role = document.getElementById("signup-role").value.trim().toLowerCase();
+
+      if (!["user", "owner"].includes(role)) {
+        alert("Role must be either 'user' or 'owner'");
+        return;
+      }
+
+      let users = JSON.parse(localStorage.getItem("salonUsers")) || [];
+
+      const emailExists = users.some(user => user.email === email);
+      if (emailExists) {
+        alert("An account with this email already exists.");
+        return;
+      }
+
+      users.push({ name, email, password, role });
+      localStorage.setItem("salonUsers", JSON.stringify(users));
+
+      alert("Signup successful! You can now login.");
+      window.location.href = "login.html";
+    });
+  </script>
+</body>
+</html>

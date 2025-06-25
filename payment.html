@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SalonEase Payment</title>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #fff0f6;
+      text-align: center;
+      padding: 50px;
+    }
+
+    .payment-box {
+      background: #fff;
+      padding: 40px;
+      border-radius: 15px;
+      max-width: 500px;
+      margin: auto;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      color: #d81b60;
+      margin-bottom: 20px;
+    }
+
+    #countdown {
+      font-size: 1.5rem;
+      margin: 20px 0;
+      color: #9c27b0;
+    }
+
+    .back-btn {
+      margin-top: 20px;
+      background: #9c27b0;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 30px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .back-btn:hover {
+      background: #6a1b9a;
+    }
+  </style>
+</head>
+<body>
+  <div class="payment-box">
+    <h2>Processing Your Payment...</h2>
+    <div id="countdown">04:00</div>
+    <button class="back-btn" onclick="goBack()">← Back to Services</button>
+  </div>
+
+  <script>
+    // Razorpay Setup
+    const totalAmount = 500; // Replace with localStorage/cart amount if needed
+
+    const options = {
+      key: "YOUR_RAZORPAY_KEY_ID", // replace with your test/live Razorpay Key
+      amount: totalAmount * 100,
+      currency: "INR",
+      name: "SalonEase",
+      description: "Salon Booking Payment",
+      image: "./Images/logo.jpg",
+      handler: function (response) {
+        alert("Payment Successful! Payment ID: " + response.razorpay_payment_id);
+        window.location.href = "menu.html";
+      },
+      prefill: {
+        name: "Customer",
+        email: "test@example.com",
+        contact: "9999999999"
+      },
+      theme: {
+        color: "#d81b60"
+      }
+    };
+
+    const rzp = new Razorpay(options);
+    rzp.open();
+
+    // Countdown logic
+    let timeLeft = 240; // 4 minutes in seconds
+    const countdownEl = document.getElementById("countdown");
+
+    const timer = setInterval(() => {
+      const minutes = Math.floor(timeLeft / 60);
+      const seconds = timeLeft % 60;
+      countdownEl.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+      if (timeLeft <= 0) {
+        clearInterval(timer);
+        alert("Session expired. Redirecting...");
+        window.location.href = "menu.html";
+      }
+
+      timeLeft--;
+    }, 1000);
+
+    // Back button
+    function goBack() {
+      window.location.href = "menu.html";
+    }
+  </script>
+</body>
+</html>
+

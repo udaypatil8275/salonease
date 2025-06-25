@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Manage Appointments | SalonEase</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #d81b60;
+      --secondary: #ba68c8;
+      --gradient: linear-gradient(135deg, #f06292, #ba68c8);
+      --background: #fff0f6;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: var(--background);
+      padding: 0;
+      min-height: 100vh;
+    }
+
+    header {
+      background: var(--gradient);
+      color: white;
+      padding: 1rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo img {
+      height: 50px;
+      border-radius: 50%;
+    }
+
+    .back-btn {
+      background-color: #fff;
+      color: var(--primary);
+      border: none;
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .back-btn:hover {
+      background-color: #ffe1ed;
+    }
+
+    h1 {
+      text-align: center;
+      margin: 2rem 0 1rem;
+      color: var(--primary);
+    }
+
+    .appointments-container {
+      width: 90%;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .appointment {
+      background: #fff;
+      border-radius: 10px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      border-left: 5px solid var(--secondary);
+      transition: 0.3s;
+    }
+
+    .appointment.accepted {
+      border-left-color: green;
+    }
+
+    .appointment h3 {
+      margin-bottom: 0.5rem;
+    }
+
+    .appointment p {
+      margin: 0.3rem 0;
+    }
+
+    .buttons {
+      margin-top: 1rem;
+    }
+
+    .buttons button {
+      margin-right: 10px;
+      padding: 8px 15px;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .buttons .accept {
+      background: green;
+      color: white;
+    }
+
+    .buttons .cancel {
+      background: crimson;
+      color: white;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+
+      .back-btn {
+        align-self: flex-end;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <img src="C:/Users/udayp/OneDrive/Desktop/collage/EI_project/Caffeteria_frontend-main/all_images/Logo.jpeg" alt="SalonEase Logo" />
+    </div>
+    <button class="back-btn" onclick="location.href='home.html'">← Back to Menu</button>
+  </header>
+
+  <h1>Manage Appointments</h1>
+
+  <div class="appointments-container" id="appointments-list">
+    <!-- Appointments will be loaded here -->
+  </div>
+
+  <script>
+    function loadAppointments() {
+      const container = document.getElementById("appointments-list");
+      container.innerHTML = "";
+      const appointments = JSON.parse(localStorage.getItem("appointments")) || [];
+
+      appointments.forEach((appt, index) => {
+        const div = document.createElement("div");
+        div.className = "appointment" + (appt.status === "accepted" ? " accepted" : "");
+        div.innerHTML = `
+          <h3>${appt.name}</h3>
+          <p><strong>Date:</strong> ${appt.date}</p>
+          <p><strong>Time:</strong> ${appt.time}</p>
+          <p><strong>Status:</strong> ${appt.status}</p>
+          <div class="buttons">
+            <button class="accept" onclick="updateStatus(${index}, 'accepted')">✅ Accept</button>
+            <button class="cancel" onclick="updateStatus(${index}, 'canceled')">❌ Cancel</button>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function updateStatus(index, status) {
+      let appointments = JSON.parse(localStorage.getItem("appointments")) || [];
+      if (status === "canceled") {
+        appointments.splice(index, 1);
+      } else {
+        appointments[index].status = status;
+      }
+      localStorage.setItem("appointments", JSON.stringify(appointments));
+      loadAppointments();
+    }
+
+    window.onload = loadAppointments;
+  </script>
+</body>
+</html>

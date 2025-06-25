@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Live Salon Traffic | SalonEase</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f9f1f7;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    #liveTrafficBanner {
+      padding: 1rem 2rem;
+      border-radius: 10px;
+      font-weight: bold;
+      font-size: 1.2rem;
+      display: inline-block;
+      min-width: 320px;
+      background: lightgray;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    h1 {
+      margin-bottom: 1.5rem;
+      color: #d81b60;
+      font-size: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>Live Salon Traffic</h1>
+  <div id="liveTrafficBanner">
+    Current Traffic Level: <span id="trafficLevelDisplay">Loading...</span>
+  </div>
+
+  <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const socket = io("https://dynamic-caffeteria-backend.onrender.com"); // Still using cafeteria backend
+      const trafficDisplay = document.getElementById("trafficLevelDisplay");
+
+      // Listen for live traffic updates
+      socket.on("trafficUpdate", (level) => {
+        trafficDisplay.textContent = level;
+        updateBannerColor(level);
+      });
+
+      // On initial load, fetch current traffic level
+      fetch("https://dynamic-caffeteria-backend.onrender.com/api/users/getTraffic")
+        .then((res) => res.json())
+        .then((data) => {
+          const level = data.traffic.level || "Unknown";
+          trafficDisplay.textContent = level;
+          updateBannerColor(level);
+        });
+
+      function updateBannerColor(level) {
+        const banner = document.getElementById("liveTrafficBanner");
+        if (level === "Low") {
+          banner.style.background = "#d4edda";
+          banner.style.color = "#155724";
+        } else if (level === "Medium") {
+          banner.style.background = "#fff3cd";
+          banner.style.color = "#856404";
+        } else if (level === "High") {
+          banner.style.background = "#f8d7da";
+          banner.style.color = "#721c24";
+        } else {
+          banner.style.background = "lightgray";
+          banner.style.color = "#333";
+        }
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SalonEase - Service Management</title>
+  <style>
+    :root {
+      --primary-color: #e91e63;
+      --primary-hover: #c2185b;
+      --danger-color: #f44336;
+      --gray-light: #f8f9fa;
+      --gray-dark: #333;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #fce4ec;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 2rem 1rem;
+    }
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+
+    h1 {
+      color: var(--primary-color);
+      margin: 0;
+    }
+
+    .home-btn {
+      background-color: var(--primary-color);
+      color: white;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 5px;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+
+    .home-btn:hover {
+      background-color: var(--primary-hover);
+    }
+
+    p {
+      color: #666;
+      margin-bottom: 2rem;
+    }
+
+    .controls {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    .search-box {
+      flex: 1;
+      position: relative;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 0.5rem 1rem 0.5rem 2.5rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .search-box::before {
+      content: "🔍";
+      position: absolute;
+      left: 10px;
+      top: 8px;
+    }
+
+    .controls select, .controls button {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    .primary-btn {
+      background-color: var(--primary-color);
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .primary-btn:hover {
+      background-color: var(--primary-hover);
+    }
+
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+
+    .service-card {
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .service-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .service-content {
+      padding: 1rem;
+    }
+
+    .service-content h3 {
+      margin: 0;
+      color: var(--gray-dark);
+    }
+
+    .service-content p {
+      font-size: 0.9rem;
+      color: #666;
+      margin: 0.5rem 0;
+    }
+
+    .service-content .price {
+      font-weight: bold;
+      color: var(--primary-color);
+    }
+
+    .service-actions {
+      margin-top: 1rem;
+    }
+
+    .service-actions button {
+      background: none;
+      border: none;
+      margin-right: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .edit-btn:hover {
+      color: var(--primary-color);
+    }
+
+    .delete-btn:hover {
+      color: var(--danger-color);
+    }
+
+    /* Modal */
+    .modal {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: rgba(0,0,0,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 1rem;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 500px;
+    }
+
+    .modal-content h2 {
+      margin-top: 0;
+    }
+
+    .modal-content label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: 500;
+    }
+
+    .modal-content input,
+    .modal-content textarea,
+    .modal-content select {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.3rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .modal-content .actions {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 1rem;
+      gap: 10px;
+    }
+
+    .modal-content .actions button {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 5px;
+      font-weight: 600;
+    }
+
+    .modal-content .actions .save-btn {
+      background: var(--primary-color);
+      color: white;
+    }
+
+    .modal-content .actions .close-btn {
+      background: #ddd;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="top-bar">
+      <h1>SalonEase Services</h1>
+      <a href="home.html" class="home-btn">🏠 Home</a>
+    </div>
+    <p>Manage your salon's service offerings</p>
+
+    <div class="controls">
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Search service...">
+      </div>
+      <select id="categoryFilter">
+        <option value="all">All</option>
+        <option value="hair">Hair</option>
+        <option value="skin">Skin</option>
+        <option value="nails">Nails</option>
+      </select>
+      <button class="primary-btn" onclick="openModal()">➕ Add New Service</button>
+    </div>
+
+    <div id="servicesContainer" class="service-grid"></div>
+  </div>
+
+  <!-- Modal -->
+  <div id="modal" class="modal" style="display:none">
+    <div class="modal-content">
+      <h2 id="modalTitle">Add Service</h2>
+      <label>Name: <input type="text" id="serviceName"></label>
+      <label>Price: <input type="number" id="servicePrice"></label>
+      <label>Description: <textarea id="serviceDesc"></textarea></label>
+      <label>Image URL: <input type="text" id="serviceImg"></label>
+      <label>Category:
+        <select id="serviceCategory">
+          <option value="hair">Hair</option>
+          <option value="skin">Skin</option>
+          <option value="nails">Nails</option>
+        </select>
+      </label>
+      <label><input type="checkbox" id="serviceAvailable"> Available</label>
+      <div class="actions">
+        <button class="save-btn" onclick="saveService()">Save</button>
+        <button class="close-btn" onclick="closeModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script>
+    let services = JSON.parse(localStorage.getItem("salonServices")) || [
+      {
+        id: "1",
+        name: "Haircut",
+        price: 200,
+        description: "Professional haircut by expert stylists.",
+        image: "https://images.unsplash.com/photo-1588776814546-f3db9c3b4cd6?auto=format&fit=crop&w=800",
+        category: "hair",
+        available: true
+      },
+      {
+        id: "2",
+        name: "Facial Glow",
+        price: 450,
+        description: "Deep cleansing and glowing facial.",
+        image: "https://images.unsplash.com/photo-1622547748224-1d4c0c50bb07?auto=format&fit=crop&w=800",
+        category: "skin",
+        available: true
+      }
+    ];
+
+    let editingId = null;
+
+    function updateLocalStorage() {
+      localStorage.setItem("salonServices", JSON.stringify(services));
+    }
+
+    function renderServices() {
+      const container = document.getElementById('servicesContainer');
+      const search = document.getElementById('searchInput').value.toLowerCase();
+      const filter = document.getElementById('categoryFilter').value;
+
+      container.innerHTML = "";
+      services
+        .filter(s => s.name.toLowerCase().includes(search) && (filter === 'all' || s.category === filter))
+        .forEach(s => {
+          const card = document.createElement('div');
+          card.className = 'service-card';
+          card.innerHTML = `
+            <img src="${s.image}" alt="${s.name}">
+            <div class="service-content">
+              <h3>${s.name}</h3>
+              <p class="price">₹${s.price}</p>
+              <p>${s.description}</p>
+              <div class="service-actions">
+                <button class="edit-btn" onclick="editService('${s.id}')">✏️ Edit</button>
+                <button class="delete-btn" onclick="deleteService('${s.id}')">🗑️ Delete</button>
+              </div>
+            </div>
+          `;
+          container.appendChild(card);
+        });
+    }
+
+    function openModal(service = null) {
+      editingId = service ? service.id : null;
+      document.getElementById('modalTitle').innerText = editingId ? 'Edit Service' : 'Add Service';
+      document.getElementById('serviceName').value = service?.name || '';
+      document.getElementById('servicePrice').value = service?.price || '';
+      document.getElementById('serviceDesc').value = service?.description || '';
+      document.getElementById('serviceImg').value = service?.image || '';
+      document.getElementById('serviceCategory').value = service?.category || 'hair';
+      document.getElementById('serviceAvailable').checked = service?.available || false;
+
+      document.getElementById('modal').style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('modal').style.display = 'none';
+    }
+
+    function saveService() {
+      const name = document.getElementById('serviceName').value;
+      const price = parseFloat(document.getElementById('servicePrice').value);
+      const desc = document.getElementById('serviceDesc').value;
+      const img = document.getElementById('serviceImg').value;
+      const cat = document.getElementById('serviceCategory').value;
+      const available = document.getElementById('serviceAvailable').checked;
+
+      if (!name || !price || !desc || !img) {
+        alert("Please fill all fields");
+        return;
+      }
+
+      const service = {
+        id: editingId || Date.now().toString(),
+        name,
+        price,
+        description: desc,
+        image: img,
+        category: cat,
+        available
+      };
+
+      if (editingId) {
+        services = services.map(s => s.id === editingId ? service : s);
+      } else {
+        services.push(service);
+      }
+
+      updateLocalStorage();
+      closeModal();
+      renderServices();
+    }
+
+    function editService(id) {
+      const service = services.find(s => s.id === id);
+      openModal(service);
+    }
+
+    function deleteService(id) {
+      if (confirm("Are you sure to delete this service?")) {
+        services = services.filter(s => s.id !== id);
+        updateLocalStorage();
+        renderServices();
+      }
+    }
+
+    document.getElementById('searchInput').addEventListener('input', renderServices);
+    document.getElementById('categoryFilter').addEventListener('change', renderServices);
+
+    document.addEventListener('DOMContentLoaded', renderServices);
+  </script>
+</body>
+</html>

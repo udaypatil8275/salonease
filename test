@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SalonEase</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f4f4f4;
+    }
+
+    header nav ul {
+      display: flex;
+      list-style: none;
+      justify-content: center;
+      gap: 50px;
+      padding: 20px;
+      background-color: #f8e7e7;
+      font-size: 1.2rem;
+      margin: 0;
+    }
+
+    nav a {
+      text-decoration: none;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .background {
+      background-image: url('./Images/salon_background.jpg');
+      background-size: cover;
+      background-position: center;
+      height: 800px;
+      text-align: center;
+      color: white;
+      padding-top: 300px;
+      margin-bottom: 70px;
+    }
+
+    .background h1 {
+      font-size: 6rem;
+      margin: 0;
+    }
+
+    .background p {
+      font-size: 1.5rem;
+      margin: 20px auto;
+      max-width: 800px;
+    }
+
+    .button-container {
+      margin-top: 30px;
+    }
+
+    .button-container button {
+      padding: 15px 30px;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 25px;
+      margin: 0 10px;
+      cursor: pointer;
+      background: linear-gradient(135deg, #f06292, #ba68c8);
+      color: white;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      padding: 0 20px 60px;
+    }
+
+    .feature, .service-item {
+      width: 250px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      text-align: center;
+      padding: 15px;
+    }
+
+    .feature img, .service-item img {
+      width: 100%;
+      height: 180px;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+
+    .feature h3, .service-item p {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="#">SalonEase</a></li>
+        <li><a href="home.html">Home</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div class="background">
+      <h1>SALON EASE</h1>
+      <p>Relax. Refresh. Rejuvenate. Experience top-notch grooming and wellness with our trusted professionals.</p>
+      <div class="button-container">
+        <button onclick="window.location.href='menu.html'">View Services</button>
+        <button onclick="window.location.href='book_seat_new.html'">Book Appointment</button>
+      </div>
+    </div>
+
+    <section>
+      <h2>Popular Services</h2>
+      <div class="container">
+        <div class="service-item">
+          <img src="./all_images/haircut.jpg" alt="Haircut">
+          <p>Haircut</p>
+        </div>
+        <div class="service-item">
+          <img src="./all_images/facial.jpg" alt="Facial">
+          <p>Facial</p>
+        </div>
+        <div class="service-item">
+          <img src="./all_images/spa.jpg" alt="Spa">
+          <p>Spa Therapy</p>
+        </div>
+        <div class="service-item">
+          <img src="./all_images/manicure.jpg" alt="Manicure">
+          <p>Manicure</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Why Choose SalonEase?</h2>
+      <div class="container">
+        <div class="feature">
+          <img src="./all_images/prebook_seat.jpeg" alt="Book Seat">
+          <h3>Easy Appointment Booking</h3>
+        </div>
+        <div class="feature">
+          <img src="./all_images/real_time_cafeteria_satatus.jpeg" alt="Live Status">
+          <h3>Live Queue Status</h3>
+        </div>
+        <div class="feature">
+          <img src="./all_images/dianamic_menu.jpg" alt="Service List">
+          <h3>Dynamic Services</h3>
+        </div>
+        <div class="feature">
+          <img src="./all_images/feedback.jpeg" alt="Feedback">
+          <h3>Instant Feedback</h3>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

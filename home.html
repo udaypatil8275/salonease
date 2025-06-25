@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SalonEase – Your Salon Booking Partner</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        padding: 0;
+        color: #333;
+        background-color: #fffafc;
+      }
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        background-color: #ffb3cc;
+      }
+      .logo img {
+        height: 70px;
+        width: 150px;
+        margin-left: 1200px;
+        border: solid 3px #d81b60;
+        border-radius: 40px;
+      }
+      nav ul {
+        list-style: none;
+        display: flex;
+        gap: 50px;
+        font-size: 1.1rem;
+        margin: 0;
+        padding: 0;
+        margin-right: 100px;
+      }
+      nav ul li a {
+        text-decoration: none;
+        color: #6a1b9a;
+        font-weight: 600;
+      }
+      nav ul li a.cta {
+        background-color: #d81b60;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 25px;
+      }
+      .hero {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #fff0f5;
+        padding: 60px 40px;
+      }
+      .hero-text {
+        max-width: 50%;
+        margin-left: 100px;
+      }
+      .hero-text h1 {
+        font-size: 3.5em;
+        margin: 0;
+        color: #8e24aa;
+      }
+      .hero-text .highlight {
+        color: #d81b60;
+      }
+      .hero-text p {
+        font-size: 1.3em;
+        margin-top: 30px;
+      }
+      .btn,
+      .btn_1 {
+        display: inline-block;
+        font-size: 1rem;
+        padding: 12px 25px;
+        background-color: #ab47bc;
+        color: white;
+        text-decoration: none;
+        border-radius: 30px;
+        margin-top: 20px;
+        margin-right: 15px;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+      }
+      .btn:hover,
+      .btn_1:hover {
+        background-color: #8e24aa;
+      }
+      .hero-image img {
+        max-width: 500px;
+        height: auto;
+        border-radius: 30px;
+      }
+      .food_information h1 {
+        text-align: center;
+        margin-top: 60px;
+        font-size: 2.8rem;
+        color: #6a1b9a;
+      }
+      .container {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 40px;
+        padding: 40px 20px;
+      }
+      .food-item {
+        text-align: center;
+      }
+      .food-item img {
+        width: 200px;
+        height: 200px;
+        border-radius: 20px;
+        object-fit: cover;
+      }
+      .food-item p {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-top: 10px;
+      }
+      .features_information {
+        background-color: #f3e5f5;
+        padding: 50px 0;
+      }
+      .features_information h1 {
+        text-align: center;
+        font-size: 2.5rem;
+        color: #8e24aa;
+        margin-bottom: 40px;
+      }
+      .feature {
+        background-color: #f8bbd0;
+        border: 2px solid #ab47bc;
+        border-radius: 20px;
+        padding: 20px;
+        width: 300px;
+        text-align: center;
+      }
+      .feature img {
+        width: 150px;
+        height: 150px;
+        border-radius: 15px;
+        object-fit: cover;
+      }
+      .feature h3 {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-top: 15px;
+        color: #6a1b9a;
+      }
+      .stats {
+        display: flex;
+        justify-content: space-around;
+        background-color: #ab47bc;
+        color: white;
+        padding: 40px 20px;
+        text-align: center;
+      }
+      .stat h2 {
+        font-size: 2rem;
+      }
+      .stat p {
+        font-size: 1rem;
+      }
+      footer {
+        background-color: #6a1b9a;
+        color: white;
+        padding: 50px 20px;
+      }
+      footer h3 {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+      }
+      footer ul {
+        list-style: none;
+        padding: 0;
+      }
+      footer ul li a {
+        color: white;
+        text-decoration: none;
+        font-size: 0.95rem;
+      }
+      .footer-bottom {
+        text-align: center;
+        margin-top: 30px;
+        border-top: 1px solid #9575cd;
+        padding-top: 10px;
+        font-size: 0.85rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div style="margin-left: 30px;">
+        <a href="dashboard.html" style="text-decoration: none; color: #6a1b9a; font-weight: 600; font-size: 1rem; background-color: #ffffff; padding: 10px 18px; border-radius: 25px; border: 2px solid #d81b60;">
+          <i class="fas fa-user-circle" style="margin-right: 8px;"></i> Profile
+        </a>
+      </div>
+      <div class="logo">
+        <img src="C:\Users\udayp\OneDrive\Desktop\collage\EI_project\Caffeteria_frontend-main\all_images\Logo.jpeg" alt="SalonEase Logo" />
+      </div>
+      <nav>
+        <ul id="nav-links"></ul>
+      </nav>
+    </header>
+    <main>
+      <section class="hero">
+        <div class="hero-text">
+          <h1>Welcome to <span class="highlight">SalonEase</span></h1>
+          <p>Book beauty services like haircuts, facials, and manicures with ease at your fingertips.</p>
+          <a href="menu.html" class="btn">Book Service</a>
+          <a href="book_seat_new.html" class="btn_1">Schedule Now</a>
+        </div>
+        <div class="hero-image">
+          <img src="C:\Users\udayp\OneDrive\Desktop\collage\EI_project\Caffeteria_frontend-main\all_images\AlbedoBase_XL_modern_luxurious_beauty_salon_with_stylist_worki_2.jpg" alt="Salon Welcome Image" />
+        </div>
+      </section>
+
+```
+  <section class="food_information">
+    <h1>Popular Services</h1>
+    <div class="container">
+      <div class="food-item">
+        <img src="C:\Users\udayp\OneDrive\Desktop\collage\EI_project\Caffeteria_frontend-main\all_images\Haircut.jpg" alt="Haircut" />
+        <p>Haircut</p>
+      </div>
+      <div class="food-item">
+        <img src="C:\Users\udayp\OneDrive\Desktop\collage\EI_project\Caffeteria_frontend-main\all_images\Facial.jpg" alt="Facial" />
+        <p>Facial</p>
+      </div>
+      <div class="food-item">
+        <img src="C:\Users\udayp\OneDrive\Desktop\collage\EI_project\Caffeteria_frontend-main\all_images\Minicure.jpg" alt="Manicure" />
+        <p>Manicure</p>
+      </div>
+      <div class="food-item">
+        <img src="C:\Users\udayp\OneDrive\Desktop\collage\EI_project\Caffeteria_frontend-main\all_images\Pedicure.jpg" alt="Pedicure" />
+        <p>Pedicure</p>
+      </div>
+      <div class="food-item">
+        <img src="C:\Users\udayp\OneDrive\Desktop\collage\EI_project\Caffeteria_frontend-main\all_images\Makeup.jpg" alt="Makeup" />
+        <p>Makeup</p>
+      </div>
+      <div class="food-item">
+        <img src="C:\Users\udayp\OneDrive\Desktop\collage\EI_project\Caffeteria_frontend-main\all_images\Spa.jpg" alt="Spa" />
+        <p>Spa</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="features_information">
+    <h1>Why Choose SalonEase?</h1>
+    <div class="container">
+      <div class="feature">
+        <img src="C:\Users\udayp\OneDrive\Desktop\collage\EI_project\Caffeteria_frontend-main\all_images\Leonardo_Kino_XL_mobile_phone_showing_salon_booking_app_interf_1.jpg" alt="Online Booking" />
+        <h3>Book Your Appointment Online</h3>
+      </div>
+      <div class="feature">
+        <img src=c:\Users\udayp\OneDrive\Desktop\collage\EI_project\Caffeteria_frontend-main\all_images\Leonardo_Kino_XL_group_of_professional_salon_stylists_posing_c_2.jpg alt="Professional Stylists" />
+        <h3>Top-Rated Stylists</h3>
+      </div>
+      <div class="feature">
+        <img src="C:\Users\udayp\OneDrive\Desktop\collage\EI_project\Caffeteria_frontend-main\all_images\Leonardo_Kino_XL_happy_salon_customer_giving_rating_on_digital_0.jpg" alt="Feedback" />
+        <h3>Easy Feedback System</h3>
+      </div>
+      <div class="feature">
+        <img src="C:\Users\udayp\OneDrive\Desktop\collage\EI_project\Caffeteria_frontend-main\all_images\Leonardo_Kino_XL_salon_staff_sanitizing_tools_and_maintaining_1.jpg" alt="Hygiene" />
+        <h3>High Hygiene Standards</h3>
+      </div>
+    </div>
+  </section>
+</main>
+<div class="stats">
+  <div class="stat">
+    <h2>2,000+</h2>
+    <p>Appointments Booked</p>
+  </div>
+  <div class="stat">
+    <h2>100+</h2>
+    <p>Professional Stylists</p>
+  </div>
+  <div class="stat">
+    <h2>4.9⭐</h2>
+    <p>User Rating</p>
+  </div>
+  <div class="stat">
+    <h2>98%</h2>
+    <p>Happy Clients</p>
+  </div>
+</div>
+<footer>
+  <div class="footer-container">
+    <div>
+      <h3>About SalonEase</h3>
+      <ul>
+        <li><a href="#">Our Team</a></li>
+        <li><a href="#">How It Works</a></li>
+        <li><a href="feedback.html">Feedback</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Services</h3>
+      <ul>
+        <li><a href="#">Hair Styling</a></li>
+        <li><a href="#">Skin & Facial</a></li>
+        <li><a href="#">Nail Care</a></li>
+        <li><a href="contact_us.html">Massage</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Legal</h3>
+      <ul>
+        <li><a href="privacy.html">Privacy Policy</a></li>
+        <li><a href="terms.html">Terms & Conditions</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Follow Us</h3>
+      <ul>
+        <li><a href=""C:\Users\udayp\OneDrive\Desktop\collage\EI_project\Caffeteria_frontend-main\all_images\instagram_logo.jpeg"">Instagram</a></li>
+        <li><a href=""C:\Users\udayp\OneDrive\Desktop\collage\EI_project\Caffeteria_frontend-main\all_images\Facebook_logo.png"">Facebook</a></li>
+        <li><a href=""C:\Users\udayp\OneDrive\Desktop\collage\EI_project\Caffeteria_frontend-main\all_images\youtube_logo.png"">YouTube</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2025 SalonEase. All rights reserved.</p>
+  </div>
+</footer>
+```
+
+  </body>
+</html>
